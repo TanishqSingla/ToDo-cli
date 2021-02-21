@@ -42,6 +42,31 @@ public:
             }
         }
     }
+
+    void delete_todo() {
+        list = head;
+        if (head == nullptr)
+            std::cout << "There are no todos" << std::endl;
+        else {
+            std::cout << "Enter the todo number you want to delete ";
+            unsigned n;
+            std::cin >> n;
+            if (n == 1) { // Deleting head
+                head = head->next;
+                delete list;
+                list = nullptr;
+            }
+            else {
+                Todo* temp = list;
+                for (unsigned i = 1; i < n - 1; i++) {
+                    temp = list;
+                    list = list->next;
+                }
+                temp->next = list->next;
+                delete list;
+            }
+        }
+    }
 };
 
 void print_menu() {
@@ -76,43 +101,13 @@ int main()
             list.list_todo();
 
         if (c == 'd') {
-            if (head == nullptr) {
-                std::cout << "There are no todos" << std::endl;
-            }
-            else {
-                std::cout << "Enter the todo number you want to delete ";
-                unsigned n;
-                std::cin >> n;
-                list = head;
-                if (n == 1) { // Deleting head
-                    Todo* temp = head;
-                    head = head->next;
-                    delete temp;
-                }
-                else {
-                    Todo* temp = list;
-                    for (unsigned i = 1; i < n - 1; i++) {
-                        temp = list;
-                        list = list->next;
-                    }
-                    temp->next = list->next;
-                    delete list;
-                }
-            }
+            list.delete_todo();
         }
 
         if (c == 'e')
             break;
     }
 
-    // Deleting the linked list
-    list = head;
-    while (head != nullptr) {
-        list = head;
-        head= head->next;
-        delete list;
-    }
-    list = nullptr;
  }
 
 
