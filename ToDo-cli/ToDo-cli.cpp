@@ -3,7 +3,7 @@
 
 struct Todo {
     std::string todo;
-    Todo* next;
+    Todo* next = nullptr;
 };
 
 void print_menu() {
@@ -28,16 +28,21 @@ int main()
     while (true) {
         print_menu();
         std::cin >> c;
+        std::cin.ignore();
 
         if (c == 'a') {
             if (head == nullptr) {
                 head = new Todo();
                 std::getline(std::cin, head->todo);
             }
-            else if (head->next == nullptr) {
+            else {
+                list = head;
+                while (list->next != nullptr)
+                    list = list->next;
                 Todo* next = new Todo();
-                std::getline(std::cin, head->todo);
-                head->next = next;
+                list->next = next;
+                std::getline(std::cin, next->todo);
+                next->next = nullptr;
             }
         }
 
@@ -45,11 +50,16 @@ int main()
             if (head == nullptr) {
                 std::cout << "There are no todos";
             }
+            else if (head != nullptr && head->next == nullptr) {
+                std::cout << head->todo << std::endl;
+            }
             else {
                 list = head;
-                while (list->next == nullptr) {
-                    std::cout << list->todo << std::endl;
+                int i = 1;
+                while (list != nullptr) {
+                    std::cout << i << ". " << list->todo << std::endl;
                     list = list->next;
+                    i++;
                 }
             }
         }
@@ -81,7 +91,7 @@ int main()
         }
 
         if (c == 'e')
-            break; 
+            break;
     }
  }
 
