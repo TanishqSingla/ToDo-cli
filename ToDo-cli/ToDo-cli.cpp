@@ -58,12 +58,13 @@ public:
             }
             else {
                 Todo* temp = list;
-                for (unsigned i = 1; i < n - 1; i++) {
+                for (unsigned i = 1; i < n; i++) {
                     temp = list;
                     list = list->next;
                 }
                 temp->next = list->next;
                 delete list;
+                list = nullptr;
             }
         }
     }
@@ -94,6 +95,7 @@ int main()
 
         if (c == 'a') {
             std::string todo;
+            std::getline(std::cin, todo);
             list.add_todo(todo);
         }
 
