@@ -42,6 +42,8 @@ int main()
             break;
     }
 
+    // Freeing the memory
+    list.free_todo();
  }
 
 

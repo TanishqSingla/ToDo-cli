@@ -69,4 +69,13 @@ public:
             }
         }
     }
+
+    void free_todo() {
+        while (head != nullptr) {
+            list = head;
+            head = head->next;
+            delete list;
+        }
+        list = nullptr;
+    }
 };
