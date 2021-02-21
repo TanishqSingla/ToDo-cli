@@ -28,6 +28,20 @@ public:
             list->next = temp;
         }
     }
+
+    void list_todo() {
+        list = head;
+        if (head == nullptr)
+            std::cout << "There are no todos" << std::endl;
+        else {
+            int i = 1;
+            while (list != nullptr) {
+                std::cout << i << ". " << list->todo << std::endl;
+                list = list->next;
+                i++;
+            }
+        }
+    }
 };
 
 void print_menu() {
@@ -44,8 +58,7 @@ void print_menu() {
 
 int main()
 {
-    Todo* head = nullptr;
-    Todo* list = head;
+    TodoList list;
     
     char c;
 
@@ -55,38 +68,12 @@ int main()
         std::cin.ignore();
 
         if (c == 'a') {
-            if (head == nullptr) {
-                head = new Todo();
-                std::getline(std::cin, head->todo);
-            }
-            else {
-                list = head;
-                while (list->next != nullptr)
-                    list = list->next;
-                Todo* next = new Todo();
-                list->next = next;
-                std::getline(std::cin, next->todo);
-                next->next = nullptr;
-            }
+            std::string todo;
+            list.add_todo(todo);
         }
 
-        if (c == 'l') {
-            if (head == nullptr) {
-                std::cout << "There are no todos";
-            }
-            else if (head != nullptr && head->next == nullptr) {
-                std::cout << head->todo << std::endl;
-            }
-            else {
-                list = head;
-                int i = 1;
-                while (list != nullptr) {
-                    std::cout << i << ". " << list->todo << std::endl;
-                    list = list->next;
-                    i++;
-                }
-            }
-        }
+        if (c == 'l')
+            list.list_todo();
 
         if (c == 'd') {
             if (head == nullptr) {
