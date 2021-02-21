@@ -6,6 +6,30 @@ struct Todo {
     Todo* next = nullptr;
 };
 
+class TodoList {
+private:
+    Todo *head, *list;
+public:
+    TodoList() {
+        head = nullptr;
+        list = nullptr;
+    }
+
+    void add_todo(std::string task) {
+        Todo* temp = new Todo;
+        temp->todo = task;
+        temp->next = nullptr;
+        if (head == nullptr)
+            head = temp;
+        else {
+            list = head;
+            while (list->next != nullptr)
+                list = list->next;
+            list->next = temp;
+        }
+    }
+};
+
 void print_menu() {
     std::cout << "+-----------------+" << std::endl;
     std::cout << "|   To Do List    |" << std::endl;
@@ -69,7 +93,7 @@ int main()
                 std::cout << "There are no todos" << std::endl;
             }
             else {
-                std::cout << "Enter the todo number you want to delete";
+                std::cout << "Enter the todo number you want to delete ";
                 unsigned n;
                 std::cin >> n;
                 list = head;
@@ -93,6 +117,15 @@ int main()
         if (c == 'e')
             break;
     }
+
+    // Deleting the linked list
+    list = head;
+    while (head != nullptr) {
+        list = head;
+        head= head->next;
+        delete list;
+    }
+    list = nullptr;
  }
 
 
