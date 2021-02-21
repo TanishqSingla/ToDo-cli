@@ -1,16 +1,12 @@
 #include <iostream>
 #include <string>
-#define MAXCHARLEN 256
 
 struct Todo {
-    char todo[MAXCHARLEN];
+    std::string todo;
     Todo* next;
 };
 
-
-int main()
-{
-    Todo* head = NULL;
+void print_menu() {
     std::cout << "+-----------------+" << std::endl;
     std::cout << "|   To Do List    |" << std::endl;
     std::cout << "+-----------------+" << std::endl;
@@ -20,24 +16,77 @@ int main()
     std::cout << "2. List todos (l)" << std::endl;
     std::cout << "3. Delete a todo (d)" << std::endl;
     std::cout << "4. Exit application (e)" << std::endl;
+}
 
+int main()
+{
+    Todo* head = nullptr;
+    Todo* list = head;
+    
     char c;
-    std::cin >> c;
 
-    if (c == 'a') {
-        if (head == NULL) {
-            head = new Todo();
-            std::cin.getline(head->todo, sizeof(head->todo));
-        }
-        else if (head->next == NULL) {
-            Todo* next = new Todo();
-            head->next = next;
-        }
-    }
+    while (true) {
+        print_menu();
+        std::cin >> c;
 
-    if (c == 'l') {
-        if (head == NULL) {
-            std::cout << "There are no todos";
+        if (c == 'a') {
+            if (head == nullptr) {
+                head = new Todo();
+                std::getline(std::cin, head->todo);
+            }
+            else if (head->next == nullptr) {
+                Todo* next = new Todo();
+                std::getline(std::cin, head->todo);
+                head->next = next;
+            }
         }
+
+        if (c == 'l') {
+            if (head == nullptr) {
+                std::cout << "There are no todos";
+            }
+            else {
+                list = head;
+                while (list->next == nullptr) {
+                    std::cout << list->todo << std::endl;
+                    list = list->next;
+                }
+            }
+        }
+
+        if (c == 'd') {
+            if (head == nullptr) {
+                std::cout << "There are no todos" << std::endl;
+            }
+            else {
+                std::cout << "Enter the todo number you want to delete";
+                unsigned n;
+                std::cin >> n;
+                list = head;
+                if (n == 1) { // Deleting head
+                    Todo* temp = head;
+                    head = head->next;
+                    delete temp;
+                }
+                else {
+                    Todo* temp = list;
+                    for (unsigned i = 1; i < n - 1; i++) {
+                        temp = list;
+                        list = list->next;
+                    }
+                    temp->next = list->next;
+                    delete list;
+                }
+            }
+        }
+
+        if (c == 'e')
+            break; 
     }
  }
+
+
+// TODO: Use smart pointers
+// TOOD: Use JSON for storing todo
+// std::unique_ptr<Node> = std::make_unique<Node>(args);
+// implement class for nodes
