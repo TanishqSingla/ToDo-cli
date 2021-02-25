@@ -11,7 +11,8 @@ void print_menu() {
     std::cout << "1. Add a todo (a)" << std::endl;
     std::cout << "2. List todos (l)" << std::endl;
     std::cout << "3. Delete a todo (d)" << std::endl;
-    std::cout << "4. Exit application (e)" << std::endl;
+    std::cout << "4. Save todo (s)" << std::endl;
+    std::cout << "5. Exit application (e)" << std::endl;
 }
 
 int main()
@@ -31,11 +32,16 @@ int main()
             list.add_todo(todo);
         }
 
-        if (c == 'l')
+        if (c == 'l') {
             list.list_todo();
+        }
 
         if (c == 'd') {
             list.delete_todo();
+        }
+
+        if (c == 's') {
+            
         }
 
         if (c == 'e')

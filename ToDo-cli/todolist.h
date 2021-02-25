@@ -10,6 +10,17 @@ struct Todo {
 class TodoList {
 private:
     Todo* head, * list;
+
+    Todo* get_from_index(int index) { // index starts from 0
+        Todo* temp = head;
+        for (int i = 0; i < index && temp != nullptr; i++)
+            temp = temp->next;
+
+        if (temp == nullptr)
+            return nullptr;
+        else
+            return temp;
+    }
 public:
     TodoList() {
         head = nullptr;
