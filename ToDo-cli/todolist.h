@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 
 struct Todo {
     std::string todo;
@@ -9,7 +10,7 @@ struct Todo {
 
 class TodoList {
 private:
-    Todo* head, * list;
+    Todo* head;
 
     Todo* get_from_index(int index) { // index starts from 0
         Todo* temp = head;
@@ -21,28 +22,40 @@ private:
         else
             return temp;
     }
+
+    std::string createObject(Todo* listItem) {
+        std::string object = "{\"task\": \"" + listItem->todo + "\"},";
+        return object;
+    }
+
 public:
+    unsigned int length = 0;
+
     TodoList() {
         head = nullptr;
-        list = nullptr;
     }
 
     void add_todo(std::string task) {
+        Todo* list = head;
         Todo* temp = new Todo;
         temp->todo = task;
         temp->next = nullptr;
-        if (head == nullptr)
+        if (head == nullptr) {
             head = temp;
+            ++length;
+        }
         else {
             list = head;
-            while (list->next != nullptr)
+            while (list->next != nullptr) {
                 list = list->next;
+                ++length;
+            }
             list->next = temp;
         }
     }
 
     void list_todo() {
-        list = head;
+        Todo* list = head;
         if (head == nullptr)
             std::cout << "There are no todos" << std::endl;
         else {
@@ -56,7 +69,7 @@ public:
     }
 
     void delete_todo() {
-        list = head;
+        Todo* list = head;
         if (head == nullptr)
             std::cout << "There are no todos to delete" << std::endl;
         else {
@@ -67,19 +80,37 @@ public:
                 head = head->next;
                 delete list;
                 list = nullptr;
+                --length;
             }
             else {
                 Todo* temp = get_from_index(n-2);
-                list = get_from_index(n - 1); // to be deleted
+                list = temp->next;// to be deleted
                 temp->next = list->next;
                 delete list;
                 list = nullptr;
+                --length;
             }
         }
     }
 
+    void save_todo(std::string filename) {
+        Todo* list = head;
+        std::ofstream file;
+        filename += ".json";
+        file.open(filename);
+        file << "[";
+        while (list != nullptr) {
+            file << createObject(list);
+            list = list->next;
+        }
+        file << "]";
+        file.close();
+    }
+
     void free_todo() {
+        Todo* list = head;
         while (head != nullptr) {
+            length = 0;
             list = head;
             head = head->next;
             delete list;

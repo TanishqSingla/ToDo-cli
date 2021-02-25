@@ -41,7 +41,10 @@ int main()
         }
 
         if (c == 's') {
-            
+            std::cout << "Enter file name: ";
+            std::string filename;
+            std::cin >> filename;
+            list.save_todo(filename);
         }
 
         if (c == 'e')
