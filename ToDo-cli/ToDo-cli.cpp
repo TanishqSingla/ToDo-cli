@@ -3,6 +3,7 @@
 #include "todolist.h"
 
 void print_menu() {
+    system("cls");
     std::cout << "+-----------------+" << std::endl;
     std::cout << "|   To Do List    |" << std::endl;
     std::cout << "+-----------------+" << std::endl;
@@ -27,20 +28,29 @@ int main()
         std::cin.ignore();
 
         if (c == 'a') {
+            system("cls");
+            std::cout << "Add Todo:" << std::endl;
             std::string todo;
             std::getline(std::cin, todo);
             list.add_todo(todo);
         }
 
         if (c == 'l') {
+            system("cls");
+            std::cout << "Todos:" << std::endl;
             list.list_todo();
+            char c;
+            std::cout << "Press q to go back to menu ";
+            while ((c =getchar()) != 'q');
         }
 
         if (c == 'd') {
+            system("cls");
             list.delete_todo();
         }
 
         if (c == 's') {
+            system("cls");
             std::cout << "Enter file name: ";
             std::string filename;
             std::cin >> filename;
