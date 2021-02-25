@@ -58,7 +58,7 @@ public:
     void delete_todo() {
         list = head;
         if (head == nullptr)
-            std::cout << "There are no todos" << std::endl;
+            std::cout << "There are no todos to delete" << std::endl;
         else {
             std::cout << "Enter the todo number you want to delete ";
             unsigned n;
@@ -69,11 +69,8 @@ public:
                 list = nullptr;
             }
             else {
-                Todo* temp = list;
-                for (unsigned i = 1; i < n; i++) {
-                    temp = list;
-                    list = list->next;
-                }
+                Todo* temp = get_from_index(n-2);
+                list = get_from_index(n - 1); // to be deleted
                 temp->next = list->next;
                 delete list;
                 list = nullptr;
