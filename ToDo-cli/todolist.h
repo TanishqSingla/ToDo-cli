@@ -98,13 +98,16 @@ public:
         std::ofstream file;
         filename += ".json";
         file.open(filename);
-        file << "[";
-        while (list != nullptr) {
-            file << createObject(list);
-            list = list->next;
+        if (file.is_open()) {
+            file << "[";
+            while (list != nullptr) {
+                file << createObject(list);
+                list = list->next;
+            }
+            file << "]";
+            file.close();
         }
-        file << "]";
-        file.close();
+        else std::cout << "Error opening file";
     }
 
     void free_todo() {
