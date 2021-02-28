@@ -29,10 +29,15 @@ int main()
 
         if (c == 'a') {
             system("cls");
-            std::cout << "Add Todo:" << std::endl;
             std::string todo;
-            std::getline(std::cin, todo);
-            list.add_todo(todo);
+            std::cout << "Add Todo:" << std::endl;
+            std::cout << "Type EOF to exit" << std::endl;
+            while (1) {
+                std::getline(std::cin, todo);
+                if (todo == "EOF")
+                    break;
+                list.add_todo(todo);
+            }
         }
 
         if (c == 'l') {
@@ -46,6 +51,7 @@ int main()
 
         if (c == 'd') {
             system("cls");
+            list.list_todo();
             list.delete_todo();
         }
 
