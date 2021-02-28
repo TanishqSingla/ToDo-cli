@@ -110,7 +110,7 @@ public:
         else std::cout << "Error opening file";
     }
 
-    void free_todo() {
+    ~TodoList() {
         Todo* list = head;
         while (head != nullptr) {
             length = 0;

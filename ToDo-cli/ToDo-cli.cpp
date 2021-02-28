@@ -60,9 +60,6 @@ int main()
         if (c == 'e')
             break;
     }
-
-    // Freeing the memory
-    list.free_todo();
  }
 
 
