@@ -67,9 +67,3 @@ int main()
             break;
     }
  }
-
-
-// TODO: Use smart pointers
-// TOOD: Use JSON for storing todo
-// std::unique_ptr<Node> = std::make_unique<Node>(args);
-// implement class for nodes
